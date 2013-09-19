@@ -1,0 +1,63 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:con="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:sys="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+   <soap:Header/>
+   <soap:Body>
+      <ser:Create>
+         <!--Optional:-->
+         <ser:entity>
+            <!--Optional:-->
+            <con:Attributes>
+               <!--Zero or more repetitions:-->
+               <con:KeyValuePairOfstringanyType>
+                  <sys:key>?</sys:key>
+                  <sys:value>?</sys:value>
+               </con:KeyValuePairOfstringanyType>
+            </con:Attributes>
+            <!--Optional:-->
+            <con:EntityState>?</con:EntityState>
+            <!--Optional:-->
+            <con:FormattedValues>
+               <!--Zero or more repetitions:-->
+               <con:KeyValuePairOfstringstring>
+                  <sys:key>?</sys:key>
+                  <sys:value>?</sys:value>
+               </con:KeyValuePairOfstringstring>
+            </con:FormattedValues>
+            <!--Optional:-->
+            <con:Id>?</con:Id>
+            <!--Optional:-->
+            <con:LogicalName>?</con:LogicalName>
+            <!--Optional:-->
+            <con:RelatedEntities>
+               <!--Zero or more repetitions:-->
+               <con:KeyValuePairOfRelationshipEntityCollectionX_PsK4FkN>
+                  <sys:key>
+                     <!--Optional:-->
+                     <con:PrimaryEntityRole>?</con:PrimaryEntityRole>
+                     <!--Optional:-->
+                     <con:SchemaName>?</con:SchemaName>
+                  </sys:key>
+                  <sys:value>
+                     <!--Optional:-->
+                     <con:Entities>
+                        <!--Zero or more repetitions:-->
+                        <con:Entity/>
+                     </con:Entities>
+                     <!--Optional:-->
+                     <con:EntityName>?</con:EntityName>
+                     <!--Optional:-->
+                     <con:MinActiveRowVersion>?</con:MinActiveRowVersion>
+                     <!--Optional:-->
+                     <con:MoreRecords>?</con:MoreRecords>
+                     <!--Optional:-->
+                     <con:PagingCookie>?</con:PagingCookie>
+                     <!--Optional:-->
+                     <con:TotalRecordCount>?</con:TotalRecordCount>
+                     <!--Optional:-->
+                     <con:TotalRecordCountLimitExceeded>?</con:TotalRecordCountLimitExceeded>
+                  </sys:value>
+               </con:KeyValuePairOfRelationshipEntityCollectionX_PsK4FkN>
+            </con:RelatedEntities>
+         </ser:entity>
+      </ser:Create>
+   </soap:Body>
+</soap:Envelope>

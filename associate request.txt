@@ -1,0 +1,30 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:con="http://schemas.microsoft.com/xrm/2011/Contracts">
+   <soap:Header/>
+   <soap:Body>
+      <ser:Associate>
+         <!--Optional:-->
+         <ser:entityName>?</ser:entityName>
+         <!--Optional:-->
+         <ser:entityId>?</ser:entityId>
+         <!--Optional:-->
+         <ser:relationship>
+            <!--Optional:-->
+            <con:PrimaryEntityRole>?</con:PrimaryEntityRole>
+            <!--Optional:-->
+            <con:SchemaName>?</con:SchemaName>
+         </ser:relationship>
+         <!--Optional:-->
+         <ser:relatedEntities>
+            <!--Zero or more repetitions:-->
+            <con:EntityReference>
+               <!--Optional:-->
+               <con:Id>?</con:Id>
+               <!--Optional:-->
+               <con:LogicalName>?</con:LogicalName>
+               <!--Optional:-->
+               <con:Name>?</con:Name>
+            </con:EntityReference>
+         </ser:relatedEntities>
+      </ser:Associate>
+   </soap:Body>
+</soap:Envelope>
