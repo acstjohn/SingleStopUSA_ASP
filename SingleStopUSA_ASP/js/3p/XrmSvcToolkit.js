@@ -20,7 +20,7 @@ var XrmSvcToolkit = (function (window, undefined) {
     * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     *
     */
-        //    var Xrm = "https://singlestopusa.api.crm.dynamics.com"
+        //    var Xrm = "https://singlestopusa.crm.dynamics.com"
     var odataEndpoint = "/XRMServices/2011/OrganizationData.svc",
         soapEndpoint = "/XRMServices/2011/Organization.svc/web";
 
@@ -53,7 +53,7 @@ var XrmSvcToolkit = (function (window, undefined) {
 
 
     var clientUrl = "https://singlestopusa.crm.dynamics.com";
-//    var clientUrl = "https://singlestopusa.api.crm.dynamics.com";
+  //  var clientUrl = "https://singlestopusa.api.crm.dynamics.com";
 
     var restErrorHandler = function (req) {
         var errorMessage;

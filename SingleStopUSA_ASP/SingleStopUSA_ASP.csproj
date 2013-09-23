@@ -59,6 +59,7 @@
   <ItemGroup>
     <Content Include="index.aspx" />
     <Content Include="js\3p\jquery-1.9.1.min.js" />
+    <Content Include="js\3p\jquery.soap.js" />
     <Content Include="js\3p\json2.js" />
     <Content Include="js\3p\new  2.txt" />
     <Content Include="js\3p\new  3.txt" />

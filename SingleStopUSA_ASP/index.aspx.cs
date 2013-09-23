@@ -11,7 +11,7 @@ namespace SingleStopUSA_ASP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            headerID.Text = SingleStopUSA_ASP.authenticate.getAuthHeader();
         }
     }
 }

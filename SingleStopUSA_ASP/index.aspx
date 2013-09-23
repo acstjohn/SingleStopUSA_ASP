@@ -8,19 +8,147 @@
 
     <script src="js/main.js"></script>
     <script type="text/javascript"  src="js/3p/json2.js"></script>
- <%--   <script type="text/javascript"  src="js/3p/XrvSvcToolkit.Samples.createRecord.js  "></script>
-    <script type="text/javascript"  src="js/3p/XrmSvcToolkit.js?ver=<% = DateTime.Now.Ticks %>"></script>--%>
+    <script type="text/javascript"  src="js/3p/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript"  src="js/3p/jquery.soap.js"></script>
+    <script type="text/javascript"  src="js/3p/XrmSvcToolkit.js"></script>
+    <script type="text/javascript"  src="js/3p/XrvSvcToolkit.Samples.createRecord.js  "></script>
 
-    <script>
-        function CreateContactNew()
-        {
-            //var header = "fuck this shit"; //@{SingleStopUSA_ASP.authenticate.getAuthHeader();}
-            var header = document.getElementById('headerId').value;
-            CreateEntity(header, "contact");
-            alert("Contact has been successfully created");
-        }
+<script>
+        function jquerysoap()
+        { 
+            whoami(document.getElementById('headerID').value);
+           // callSOAPWS(document.getElementById('headerID').value);
+           // CreateEntity(document.getElementById('headerID').value, 'contact');
+       }
 </script>
 
+<script>
+    function jqueryajax() {
+        //  whoami(document.getElementById('headerID').value);
+        callSOAPWS(document.getElementById('headerID').value);
+        // CreateEntity(document.getElementById('headerID').value, 'contact');
+    }
+</script>
+
+
+<script>
+    function oldCreate() {
+         CreateEntity(document.getElementById('headerID').value, 'contact');
+    }
+</script>
+
+<script>
+function callSOAPWS(header)
+{
+
+    var soapServiceURL = 'https://singlestopusa.api.crm.dynamics.com/XRMServices/2011/Organization.svc?WSDL/';
+    var soapMessage =
+  '<s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:a=\"http://www.w3.org/2005/08/addressing\" xmlns:u=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"> ' +
+            //  header +
+              '<s:Body> ' +
+              '  <Execute xmlns=\"http://schemas.microsoft.com/xrm/2011/Contracts/Services\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"> ' +
+              '  <request i:type="b:WhoAmIRequest" xmlns:a=\"http://schemas.microsoft.com/xrm/2011/Contracts\" xmlns:b=\"http://schemas.microsoft.com/crm/2011/Contracts\"> ' +
+              '   <a:Parameters xmlns:c=\"http://schemas.datacontract.org/2004/07/System.Collections.Generic\" /> ' +
+              '   <a:RequestId i:nil="true" />' +
+              '   <a:RequestName>WhoAmI</a:RequestName>' +
+              '  </request> ' +
+              ' </Execute>' +
+              '</s:Body> ' +
+             '</s:Envelope>';
+
+
+
+  alert("Check SOAP: [" + soapMessage + "]");
+
+  jQuery.ajax({
+          url: soapServiceURL,
+          type: "POST",
+          dataType: "xml",
+          data: soapMessage,
+          contentType: "application/soap+xml; charset=\"UTF-8\"",
+         // headers: {
+         //     SOAPAction: 'http://schemas.microsoft.com/crm/2007/WebServices/Execute',
+         //     contentType: "application/soap+xml; charset=UTF-8"
+         // },
+          beforeSend: function (xhr) {
+              xhr.setRequestHeader('SOAPAction', 'http://schemas.microsoft.com/crm/2007/WebServices/Execute');
+
+          },
+          //processData: false,   // what is it for? may be should be true when using 'complete:' ?
+          //timeout: 5000,
+
+          // below I first try to have only 'complete:' then I tried to have 'success:' + 'error:', then the 3. Nothing seems to be ok. I do not find which one i should use.
+          //complete: myCallback,
+
+          success: function( response ){
+              //document.getElementById('debug').innerHTML = document.getElementById('debug').innerHTML + '\n' + 'success!' + '\n';
+              alert("success!!!");
+              return true;
+          },
+
+          error: function(XMLHttpRequest,textStatus, errorThrown){
+             // document.getElementById('debug').innerHTML = document.getElementById('debug').innerHTML + '\n' + 'error : ' + textStatus + '\n';
+              alert("error : ");
+          }
+
+  });
+
+  alert('if we reach this line, is it a fail?!');
+  return false;
+}
+
+
+</script>
+
+
+  <script>
+function whoami(header) {
+ 
+   // alert(header);
+
+    $.soap({
+        url: 'https://singlestopusa.api.crm.dynamics.com/XRMServices/2011/Organization.svc?WSDL/',
+        method: 'Execute',
+        soap12: true,
+        headers: {
+            SOAPAction: 'http://schemas.microsoft.com/crm/2007/WebServices/Execute',
+            contentType: "application/soap+xml; charset=\"UTF-8\""
+        },
+
+        params: '<s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:a=\"http://www.w3.org/2005/08/addressing\" xmlns:u=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"> ' +
+             // header +
+              '<s:Body> ' +
+              '  <Execute xmlns="\http://schemas.microsoft.com/xrm/2011/Contracts/Services\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"> ' +
+              '  <request i:type="b:WhoAmIRequest" xmlns:a=\"http://schemas.microsoft.com/xrm/2011/Contracts\" xmlns:b=\"http://schemas.microsoft.com/crm/2011/Contracts\"> ' +
+              '   <a:Parameters xmlns:c=\"http://schemas.datacontract.org/2004/07/System.Collections.Generic\" /> ' +
+              '   <a:RequestId i:nil="true" />' +
+              '   <a:RequestName>WhoAmI</a:RequestName>' +
+              '  </request> ' +
+              ' </Execute>' +
+              '</s:Body> ' +
+             '</s:Envelope>',
+
+        params: header ,
+
+
+
+        request: function (SOAPRequest) {
+            //alert(SOAPRequest.toString());
+        },
+        success: function (soapResponse) {
+            // do stuff with soapResponse
+            // if you want to have the response as JSON use soapResponse.toJSON();
+            // or soapResponse.toString() to get XML string
+            // or soapResponse.toXML() to get XML DOM
+            alert(soapResponse.toString());
+        },
+        error: function (SOAPResponse) {
+            // show error
+            alert(SOAPResponse.toString());
+        }
+    });
+}
+    </script>
 
 </head>
 <body>
@@ -111,18 +239,21 @@
             <p>
                <%-- <input type = "hidden" id ="header" runat="server" value ='@{SingleStopUSA_ASP.authenticate.getAuthHeader();}'/>--%>
                <%-- <input type = "hidden" id ="header" runat="server" value =\'' <% Response.Write(SingleStopUSA_ASP.authenticate.getAuthHeader()); %>  '\'/>--%>
-                <input type="submit"  value="Submit to Support" name="submit"/>
+           <%--     <input type="submit"  value="Submit to Support" name="submit"/>--%>
 
             </p>
-    <asp:TextBox runat="server" Text='<%Response.Write(SingleStopUSA_ASP.authenticate.getAuthHeader());}%>'/>
-         <asp:HiddenField id="headerId" runat="server" value='<% SingleStopUSA_ASP.authenticate.getAuthHeader());%>'/>
+    <asp:TextBox id="headerID" runat ="server" Visible="true" />
+         <asp:HiddenField id="headerId2" runat="server" value='<%=SingleStopUSA_ASP.authenticate.getAuthHeader());%>'/>
     </div>
-             
+            
     </form>
-   <%Response.Write(SingleStopUSA_ASP.authenticate.getAuthHeader());%>
+ <%--  <%Response.Write(SingleStopUSA_ASP.authenticate.getAuthHeader());%>--%>
 
    <%--  <%=SingleStopUSA_ASP.authenticate.getAuthHeader();%>--%>
-    <button name="send" onclick="CreateContactNew()" type="submit"> submit </button>
+    <button name="send" onclick="jquerysoap()" type="submit"> Jquery Soap plugin</button>
+    <button name="sendDemo" onclick="jqueryajax()" type="submit">Jquery Ajax</button>
+    <button name="sendOld" onclick="oldCreate()" type="submit"> Old Function</button>
+    <button name="sendXRM" onclick="onLoadCreateDemo()" type="submit">XRM Function</button>
 
 </body>
 </html>

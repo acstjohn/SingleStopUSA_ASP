@@ -22,12 +22,21 @@ namespace SingleStopUSA_ASP {
         protected global::System.Web.UI.HtmlControls.HtmlForm contactForm;
         
         /// <summary>
-        /// headerId control.
+        /// headerID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField headerId;
+        protected global::System.Web.UI.WebControls.TextBox headerID;
+        
+        /// <summary>
+        /// headerId2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField headerId2;
     }
 }

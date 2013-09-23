@@ -254,23 +254,24 @@ namespace SingleStopUSA_ASP
             #endregion
 
             #region Step 2: Get / Set CRM Data by sending FetchXML Query
+            //  <s:Envelope xmlns:s=""http://www.w3.org/2003/05/soap-envelope""
+            // xmlns:a=""http://www.w3.org/2005/08/addressing""
+            //  xmlns:u=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"">
+            
+            //<VsDebuggerCausalityData xmlns=""http://schemas.microsoft.com/vstudio/diagnostics/servicemodelsink"">
+               //     uIDPozJEz+P/wJdOhoN2XNauvYcAAAAAK0Y6fOjvMEqbgs9ivCmFPaZlxcAnCJ1GiX+Rpi09nSYACQAA</VsDebuggerCausalityData>
+             //       <a:To s:mustUnderstand=""1""> "
+             //       + CRMUrl + @"</a:To>
+            
             crmSoapRequestHeader = @"
-                <s:Envelope xmlns:s=""http://www.w3.org/2003/05/soap-envelope""
-                xmlns:a=""http://www.w3.org/2005/08/addressing""
-                xmlns:u=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"">
                   <s:Header>
                     <a:Action s:mustUnderstand=""1"">
-                    http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/Create</a:Action>
+                    http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/Execute</a:Action>
                     <a:MessageID>
                     urn:uuid:" + Guid.NewGuid().ToString() + @"</a:MessageID>
-                    <a:ReplyTo>
-                      <a:Address>
-                      http://www.w3.org/2005/08/addressing/anonymous</a:Address>
-                    </a:ReplyTo>
-                    <VsDebuggerCausalityData xmlns=""http://schemas.microsoft.com/vstudio/diagnostics/servicemodelsink"">
-                    uIDPozJEz+P/wJdOhoN2XNauvYcAAAAAK0Y6fOjvMEqbgs9ivCmFPaZlxcAnCJ1GiX+Rpi09nSYACQAA</VsDebuggerCausalityData>
-                    <a:To s:mustUnderstand=""1""> "
-                    + CRMUrl + @"</a:To>
+                     <a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo>
+                       <a:To s:mustUnderstand=""1""> "
+                    + CRMUrl + @"</a:To>                             
                     <o:Security s:mustUnderstand=""1""
                     xmlns:o=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"">
                       <u:Timestamp u:Id=""_0"">

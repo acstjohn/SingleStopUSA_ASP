@@ -18,7 +18,10 @@
     alert("Contact was created with an ID: " + contactId1);
 }*/
 
-function CreateEntity() {
+
+
+
+function CreateEntity2() {
 
     var createContact = new XrmServiceToolkit.Soap.BusinessEntity("contact");
     createContact.attributes["firstname"] = "Diane";
@@ -72,6 +75,7 @@ function CreateEntity(header, entity) {
     return CreateRecord(header, entity, fields);
 }
 
+
 //entityName can be contact, case etc.
 function CreateRecord(header, entityName, fields) {
     try {
@@ -85,7 +89,7 @@ function CreateRecord(header, entityName, fields) {
 
 
         var xml = "<Create xmlns='http://schemas.microsoft.com/crm/2007/WebServices'><entity xsi:type='" + entityName + "'>" + attributesList + "</entity></Create>";
-        var resultXml = CallCrmService(xml, 'Create',header);
+        var resultXml = CallCrmService(header,xml, 'Create');
 
 
         if (resultXml) {
@@ -103,12 +107,13 @@ function CreateRecord(header, entityName, fields) {
 function CallCrmService(header, soapBody, method) {
     try {
         var xmlHttpRequest = new ActiveXObject("Msxml2.XMLHTTP");
-        xmlHttpRequest.Open("POST", 'https://singlestopusa.crm.dynamics.com/mscrmservices/2007/CrmService.asmx', false); //synchronous
+        //xmlHttpRequest.Open("POST", 'https://singlestopusa.crm.dynamics.com/mscrmservices/2007/CrmService.asmx', false); //synchronous
+        xmlHttpRequest.Open("POST", 'https://singlestopusa.api.crm.dynamics.com/XRMServices/2011/Organization.svc/', false); //synchronous
         xmlHttpRequest.setRequestHeader("SOAPAction", 'http://schemas.microsoft.com/crm/2007/WebServices/' + method); //Fetch,Execute,Create
-        xmlHttpRequest.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
+        xmlHttpRequest.setRequestHeader("Content-Type", "application/soap+xml; charset=UTF-8");
         var xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
         //"<soap:Envelope xmlns:soap=\'http://schemas.xmlsoap.org/soap/envelope/\' xmlns:xsi=\'http://www.w3.org/2001/XMLSchema-instance\' xmlns:xsd=\'http://www.w3.org/2001/XMLSchema\'>" +
-        "<soap:Envelope xmlns:soap=\'http://www.w3.org/2003/05/soap-envelope\' xmlns:ser=\'http://schemas.microsoft.com/xrm/2011/Contracts/Services\' xmlns:con=\'http://schemas.microsoft.com/xrm/2011/Contracts' xmlns:sys=\'http://schemas.datacontract.org/2004/07/System.Collections.Generic\'>" +
+        "<soap:Envelope xmlns:soap=\'http://www.w3.org/2003/05/soap-envelope\' xmlns:ser=\'http://schemas.microsoft.com/xrm/2011/Contracts/Services\' xmlns:con=\'http://schemas.microsoft.com/xrm/2011/Contracts\' xmlns:sys=\'http://schemas.datacontract.org/2004/07/System.Collections.Generic\'>" +
         header + "<soap:Body>" + soapBody + "</soap:Body></soap:Envelope>";
         xmlHttpRequest.setRequestHeader("Content-Length", xml.length);
         xmlHttpRequest.send(xml);
