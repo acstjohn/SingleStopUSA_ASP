@@ -38,7 +38,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="microsoft.crm.sdk.proxy">
+      <HintPath>..\..\..\..\Downloads\sdk\bin\microsoft.crm.sdk.proxy.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="microsoft.xrm.client">
+      <HintPath>..\..\..\..\Downloads\sdk\bin\microsoft.xrm.client.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.xrm.sdk">
+      <HintPath>..\..\..\..\Downloads\sdk\bin\microsoft.xrm.sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -79,6 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="authenticate.cs" />
+    <Compile Include="OptionSets.cs" />
+    <Compile Include="connection.cs" />
     <Compile Include="loginheader.cs" />
     <Compile Include="deviceidmanager.cs" />
     <Compile Include="index.aspx.cs">
@@ -88,9 +101,11 @@
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MyOrganizationCrmSdkTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

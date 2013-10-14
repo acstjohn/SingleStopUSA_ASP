@@ -242,14 +242,15 @@ function whoami(header) {
            <%--     <input type="submit"  value="Submit to Support" name="submit"/>--%>
 
             </p>
-    <asp:TextBox id="headerID" runat ="server" Visible="true" />
+  <%--  <asp:TextBox id="headerID" runat ="server" Visible="true" />
          <asp:HiddenField id="headerId2" runat="server" value='<%=SingleStopUSA_ASP.authenticate.getAuthHeader());%>'/>
-    </div>
+    </div>--%>
             
     </form>
  <%--  <%Response.Write(SingleStopUSA_ASP.authenticate.getAuthHeader());%>--%>
 
    <%--  <%=SingleStopUSA_ASP.authenticate.getAuthHeader();%>--%>
+    <button name="sendSDK" onclick=<%SingleStopUSA_ASP.connection.createCase();%> type="submit"> Send via SDK</button>
     <button name="send" onclick="jquerysoap()" type="submit"> Jquery Soap plugin</button>
     <button name="sendDemo" onclick="jqueryajax()" type="submit">Jquery Ajax</button>
     <button name="sendOld" onclick="oldCreate()" type="submit"> Old Function</button>
