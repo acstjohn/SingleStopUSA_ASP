@@ -11,7 +11,12 @@ namespace SingleStopUSA_ASP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            headerID.Text = SingleStopUSA_ASP.authenticate.getAuthHeader();
+            //headerID.Text = SingleStopUSA_ASP.authenticate.getAuthHeader();
+        }
+
+        protected void callCRM_Click(object sender, EventArgs e)
+        {
+            connection.createCase();
         }
     }
 }

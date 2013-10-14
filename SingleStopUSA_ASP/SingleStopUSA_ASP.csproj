@@ -39,14 +39,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="microsoft.crm.sdk.proxy">
-      <HintPath>..\..\..\..\Downloads\sdk\bin\microsoft.crm.sdk.proxy.dll</HintPath>
+      <HintPath>D:\web\singlestopusa\sdk\bin\microsoft.crm.sdk.proxy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="microsoft.xrm.client">
-      <HintPath>..\..\..\..\Downloads\sdk\bin\microsoft.xrm.client.dll</HintPath>
+      <HintPath>D:\web\singlestopusa\sdk\bin\microsoft.xrm.client.dll</HintPath>
     </Reference>
     <Reference Include="microsoft.xrm.sdk">
-      <HintPath>..\..\..\..\Downloads\sdk\bin\microsoft.xrm.sdk.dll</HintPath>
+      <HintPath>D:\web\singlestopusa\sdk\bin\microsoft.xrm.sdk.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -105,7 +105,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.config" />
+    <None Include="app.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

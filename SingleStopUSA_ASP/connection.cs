@@ -77,8 +77,8 @@ namespace SingleStopUSA_ASP
 
                     _contactId = _orgService.Create(contact);
 
-                    Incident incident = new Incident {Description = "Blah Blah Blah" };
-                    _incidentId = _orgService.Create(incident);
+                   // Incident incident = new Incident {Description = "Blah Blah Blah" };
+                   // _incidentId = _orgService.Create(incident);
 
                     //Console.Write("{0} {1} created, ", account.LogicalName, account.Name);
 
@@ -155,7 +155,7 @@ namespace SingleStopUSA_ASP
                             ConfigurationManager.ConnectionStrings[a].ConnectionString));
             }
 
-            return filteredConnectionStrings[0].Value;
+           // return filteredConnectionStrings[0].Value;
 
             //// No valid connections strings found. Write out and error message.
             //if (filteredConnectionStrings.Count == 0)
@@ -168,12 +168,13 @@ namespace SingleStopUSA_ASP
             //    return null;
             //}
 
-            //// If one valid connection string is found, use that.
-            //if (filteredConnectionStrings.Count == 1)
-            //{
-            //    return filteredConnectionStrings[0].Value;
-            //}
+            // If one valid connection string is found, use that.
+            if (filteredConnectionStrings.Count == 1)
+            {
+                return filteredConnectionStrings[0].Value;
+            }
 
+            return null;
             //// If more than one valid connection string is found, let the user decide which to use.
             //if (filteredConnectionStrings.Count > 1)
             //{
