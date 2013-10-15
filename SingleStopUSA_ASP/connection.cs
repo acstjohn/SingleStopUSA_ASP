@@ -42,7 +42,7 @@ namespace SingleStopUSA_ASP
         /// <param name="connectionString">Provides service connection information.</param>
         /// <param name="promptforDelete">When True, the user will be prompted to delete all
         /// created entities.</param>
-        public void Run(String connectionString, bool delete)
+        public void Run(String connectionString, Incident i, Contact c )
         {
             try
             {
@@ -60,49 +60,56 @@ namespace SingleStopUSA_ASP
                     // Instantiate an account object. Note the use of option set enumerations defined in OptionSets.cs.
                     // Refer to the Entity Metadata topic in the SDK documentation to determine which attributes must
                     // be set for each entity.
-                    Account account = new Account { Name = "ASJ Enterprises" };
-                    account.AccountCategoryCode = new OptionSetValue((int)AccountAccountCategoryCode.PreferredCustomer);
-                    account.CustomerTypeCode = new OptionSetValue((int)AccountCustomerTypeCode.Investor);
+                  //  Account account = new Account { Name = "ASJ Enterprises" };
+                  //  account.AccountCategoryCode = new OptionSetValue((int)AccountAccountCategoryCode.PreferredCustomer);
+                  //  account.CustomerTypeCode = new OptionSetValue((int)AccountCustomerTypeCode.Investor);
 
                     // Create an account record named Fourth Coffee.
-                    _accountId = _orgService.Create(account);
+                 //   _accountId = _orgService.Create(account);
 
                     //ASJ
                     Contact contact = new Contact
                     {
-                        FirstName = "Jack",
-                        LastName = "Daniels",
-                        Address1_City = "Bennington"
+                        FirstName = c.FirstName,
+                        LastName = c.LastName,
+                        EMailAddress1 = c.EMailAddress1
                     };
 
                     _contactId = _orgService.Create(contact);
 
-                   // Incident incident = new Incident {Description = "Blah Blah Blah" };
-                   // _incidentId = _orgService.Create(incident);
+                    Incident incident = new Incident {
+                        Title = i.Title,
+                        Description = i.Description,
+                        CustomerId = new EntityReference(Contact.EntityLogicalName, _contactId)
+                    };
+                  
+                    _incidentId = _orgService.Create(incident);
+
+
 
                     //Console.Write("{0} {1} created, ", account.LogicalName, account.Name);
 
                     // Retrieve the several attributes from the new account.
-                    ColumnSet cols = new ColumnSet(
-                        new String[] { "name", "address1_postalcode", "lastusedincampaign" });
+                 //   ColumnSet cols = new ColumnSet(
+                //        new String[] { "name", "address1_postalcode", "lastusedincampaign" });
 
-                    Account retrievedAccount = (Account)_orgService.Retrieve("account", _accountId, cols);
+               //     Account retrievedAccount = (Account)_orgService.Retrieve("account", _accountId, cols);
                     //Console.Write("retrieved, ");
 
                     // Update the postal code attribute.
-                    retrievedAccount.Address1_PostalCode = "98052";
+             //       retrievedAccount.Address1_PostalCode = "98052";
 
                     // The address 2 postal code was set accidentally, so set it to null.
-                    retrievedAccount.Address2_PostalCode = null;
-
+          //          retrievedAccount.Address2_PostalCode = null;
+//
                     // Shows use of a Money value.
-                    retrievedAccount.Revenue = new Money(5000000);
+          //          retrievedAccount.Revenue = new Money(5000000);
 
                     // Shows use of a Boolean value.
-                    retrievedAccount.CreditOnHold = false;
+        //            retrievedAccount.CreditOnHold = false;
 
                     // Update the account record.
-                    _orgService.Update(retrievedAccount);
+         //           _orgService.Update(retrievedAccount);
             
                 }
             }
@@ -155,57 +162,13 @@ namespace SingleStopUSA_ASP
                             ConfigurationManager.ConnectionStrings[a].ConnectionString));
             }
 
-           // return filteredConnectionStrings[0].Value;
-
-            //// No valid connections strings found. Write out and error message.
-            //if (filteredConnectionStrings.Count == 0)
-            //{
-            //    Console.WriteLine("An app.config file containing at least one valid Microsoft Dynamics CRM " +
-            //        "connection string configuration must exist in the run-time folder.");
-            //    Console.WriteLine("\nThere are several commented out example connection strings in " +
-            //        "the provided app.config file. Uncomment one of them and modify the string according " +
-            //        "to your Microsoft Dynamics CRM installation. Then re-run the sample.");
-            //    return null;
-            //}
-
-            // If one valid connection string is found, use that.
+    
             if (filteredConnectionStrings.Count == 1)
             {
                 return filteredConnectionStrings[0].Value;
             }
 
-            return null;
-            //// If more than one valid connection string is found, let the user decide which to use.
-            //if (filteredConnectionStrings.Count > 1)
-            //{
-            //    Console.WriteLine("The following connections are available:");
-            //    Console.WriteLine("------------------------------------------------");
-
-            //    for (int i = 0; i < filteredConnectionStrings.Count; i++)
-            //    {
-            //        Console.Write("\n({0}) {1}\t",
-            //        i + 1, filteredConnectionStrings[i].Key);
-            //    }
-
-            //    Console.WriteLine();
-
-            //    Console.Write("\nType the number of the connection to use (1-{0}) [{0}] : ", 
-            //        filteredConnectionStrings.Count);
-            //    String input = Console.ReadLine();
-            //    int configNumber;
-            //    if (input == String.Empty) input = filteredConnectionStrings.Count.ToString();
-            //    if (!Int32.TryParse(input, out configNumber) || configNumber > count || 
-            //        configNumber == 0)
-            //    {
-            //        Console.WriteLine("Option not valid.");
-            //        return null;
-            //    }
-
-            //    return filteredConnectionStrings[configNumber - 1].Value;
-
-            //}
-            //return null;
-            
+            return null;        
         }
 
 
@@ -232,7 +195,7 @@ namespace SingleStopUSA_ASP
         /// Standard Main() method used by most SDK samples.
         /// </summary>
         /// <param name="args"></param>
-        static public void createCase()
+        static public void createCase(Incident incident, Contact contact)
         {
             try
             {
@@ -243,7 +206,7 @@ namespace SingleStopUSA_ASP
                 if (connectionString != null)
                 {
                     connection app = new connection();
-                    app.Run(connectionString, true);
+                    app.Run(connectionString, incident, contact);
                 }
             }
             catch (System.Exception ex)
@@ -265,7 +228,7 @@ namespace SingleStopUSA_ASP
                 if (connectionString != null)
                 {
                   connection app = new connection();
-                    app.Run(connectionString, true);
+                  //  app.Run(connectionString, true);
                 }
             }
 

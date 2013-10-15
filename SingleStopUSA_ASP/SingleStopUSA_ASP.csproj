@@ -90,6 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="authenticate.cs" />
+    <Compile Include="Case.cs" />
+    <Compile Include="Contact.cs" />
     <Compile Include="OptionSets.cs" />
     <Compile Include="connection.cs" />
     <Compile Include="loginheader.cs" />

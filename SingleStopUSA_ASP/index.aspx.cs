@@ -16,7 +16,19 @@ namespace SingleStopUSA_ASP
 
         protected void callCRM_Click(object sender, EventArgs e)
         {
-            connection.createCase();
+            Contact contact = new Contact
+            {
+                FirstName = firstname.Text,
+                LastName = lastname.Text,
+                EMailAddress1 = email.Text
+            };
+
+            Incident incident = new Incident {
+                Title = "New Case",
+                Description = description.Text
+            };
+
+            connection.createCase(incident,contact);
         }
     }
 }

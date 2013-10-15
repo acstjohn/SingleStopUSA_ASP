@@ -16,17 +16,16 @@
     
     
     
-    <form id="contactForm" runat="server" >
+    <form id="contactForm" runat="server" onsubmit="alert('Thank you for your feedback, we will reach out to you shortly.');">
     <div>
     <p>
-
-                First Name: <input type="text" size="65" name="firstname"/>
+                First Name: <asp:TextBox size="65" ID="firstname" runat="server"/>
             </p>
             <p>
-                Last Name: <input type="text" size="65" name="lastname"/>
+                Last Name: <asp:TextBox size="65" ID="lastname" runat="server"/>
             </p>
             <p>
-                Student ID: <input type="text" size="65" name="studentid"/>
+                Student ID: <asp:TextBox size="65" ID="studentid" runat="server"/>
             </p>
 
             <p>Preferred Method of Communication</p>
@@ -37,7 +36,7 @@
                 Phone Number: <input type="text" size="65" name="phone"/>
             </p>
             <p>
-                E-mail Address: <input type="text" size="65" name="email"/>
+                E-mail Address: <asp:TextBox  size="65" ID="email" runat="server"/>
             </p>
             <p>
                 School ID: <input type="text" size="65" name="schoolid"/>
@@ -95,7 +94,7 @@
             </p>
             <p>
                 Description:
-                <textarea cols="55" name="description">  </textarea>
+                <asp:TextBox cols="55" ID="description"  runat="server"/>
             </p>
     
 
