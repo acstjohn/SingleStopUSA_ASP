@@ -19,13 +19,13 @@
     <form id="contactForm" runat="server" onsubmit="alert('Thank you for your feedback, we will reach out to you shortly.');">
     <div>
     <p>
-                First Name: <asp:TextBox size="65" ID="firstname" runat="server"/>
+                First Name: <asp:TextBox width="65" ID="firstname" runat="server"/>
             </p>
             <p>
-                Last Name: <asp:TextBox size="65" ID="lastname" runat="server"/>
+                Last Name: <asp:TextBox width="65" ID="lastname" runat="server"/>
             </p>
             <p>
-                Student ID: <asp:TextBox size="65" ID="studentid" runat="server"/>
+                Student ID: <asp:TextBox width="65" ID="studentid" runat="server"/>
             </p>
 
             <p>Preferred Method of Communication</p>
@@ -33,16 +33,16 @@
             <input type="radio" name="prefcontact" value="prefemail"/>Email
 
             <p>
-                Phone Number: <input type="text" size="65" name="phone"/>
+                Phone Number: <asp:TextBox width="65" ID="phone" runat="server"/>
             </p>
             <p>
-                E-mail Address: <asp:TextBox  size="65" ID="email" runat="server"/>
+                E-mail Address: <asp:TextBox width="65" ID="email" runat="server"/>
             </p>
             <p>
-                School ID: <input type="text" size="65" name="schoolid"/>
+                School ID: <asp:TextBox width="65" ID="schoolid" runat="server"/>
             </p>
             <p>
-                Campus ID: <input type="text" size="65" name="campusid"/>
+                Campus ID: <asp:TextBox width="65" ID="campusid" runat="server"/>
             </p>
 
             <p>
@@ -94,11 +94,11 @@
             </p>
             <p>
                 Description:
-                <asp:TextBox cols="55" ID="description"  runat="server"/>
+                <asp:TextBox width="55" height= "300=" ID="description"  runat="server"/>
             </p>
     
 
-    </div>--%>
+    </div>
      <asp:Button ID="callCRM" runat="server" OnClick="callCRM_Click" text="Send via SDK"/>     
     </form>
 
