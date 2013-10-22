@@ -68,7 +68,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index.aspx" />
+    <Content Include="support.aspx" />
     <Content Include="js\3p\jquery-1.9.1.min.js" />
     <Content Include="js\3p\jquery.soap.js" />
     <Content Include="js\3p\json2.js" />
@@ -96,12 +96,12 @@
     <Compile Include="connection.cs" />
     <Compile Include="loginheader.cs" />
     <Compile Include="deviceidmanager.cs" />
-    <Compile Include="index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
+    <Compile Include="support.aspx.cs">
+      <DependentUpon>support.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="index.aspx.designer.cs">
-      <DependentUpon>index.aspx</DependentUpon>
+    <Compile Include="support.aspx.designer.cs">
+      <DependentUpon>support.aspx</DependentUpon>
     </Compile>
     <Compile Include="MyOrganizationCrmSdkTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,7 +131,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>26640</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:12869/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

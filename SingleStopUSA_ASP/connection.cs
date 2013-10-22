@@ -28,9 +28,9 @@ namespace SingleStopUSA_ASP
     {
         #region Class Level Members
 
-        private Guid _accountId;
         private Guid _contactId;
         private Guid _incidentId;
+        private Guid _noteId;
         private OrganizationService _orgService;
         
         #endregion Class Level Members
@@ -42,7 +42,7 @@ namespace SingleStopUSA_ASP
         /// <param name="connectionString">Provides service connection information.</param>
         /// <param name="promptforDelete">When True, the user will be prompted to delete all
         /// created entities.</param>
-        public void Run(String connectionString, Incident i, Contact c )
+        public void Run(String connectionString, Incident i, Contact c, Annotation a)
         {
             try
             {
@@ -53,63 +53,74 @@ namespace SingleStopUSA_ASP
                 // The using statement assures that the service proxy will be properly disposed.
                 using (_orgService = new OrganizationService(connection) )
                 {
-                    //Create any entity records this sample requires.
-                    CreateRequiredRecords();
 
 
-                    // Instantiate an account object. Note the use of option set enumerations defined in OptionSets.cs.
-                    // Refer to the Entity Metadata topic in the SDK documentation to determine which attributes must
-                    // be set for each entity.
-                  //  Account account = new Account { Name = "ASJ Enterprises" };
-                  //  account.AccountCategoryCode = new OptionSetValue((int)AccountAccountCategoryCode.PreferredCustomer);
-                  //  account.CustomerTypeCode = new OptionSetValue((int)AccountCustomerTypeCode.Investor);
+                    Contact contact = c;
 
-                    // Create an account record named Fourth Coffee.
-                 //   _accountId = _orgService.Create(account);
+                    //Lookup by email address to see if we already have the contact in our database, if we dont then we add it.                   
+                    //QueryByAttribute querybyattribute = new QueryByAttribute("contact"); //Create a query object
+                    //querybyattribute.ColumnSet = new ColumnSet("guid"); //Add the column(s) you want returned
+                    //querybyattribute.Attributes.AddRange("emailaddress1"); // Add which column you are searching
+                    //querybyattribute.Values.AddRange(c.EMailAddress1); //Add what you are searching fo
 
-                    //ASJ
-                    Contact contact = new Contact
-                    {
-                        FirstName = c.FirstName,
-                        LastName = c.LastName,
-                        EMailAddress1 = c.EMailAddress1
-                    };
+                    // Create a column set to define which attributes should be retrieved.
+                    //ColumnSet attributes = new ColumnSet(new string[] { "name", "ownerid" });
+
+                    //contact = _orgService.Retrieve(contact.LogicalName, _contactId, attributes);
+
+                    ////  Query passed to service proxy.
+                    ////EntityCollection retrieved = _orgService.RetrieveMultiple(querybyattribute); //Make the search
+
+                    //foreach (var e in retrieved.Entities)
+                    //{
+
+                    //    if (e.Attributes.Contains("emailaddress1"))
+                    //    {
+                    //        // _contactId = new Guid(e.Attributes["Guid"].ToString);
+                    //    }
+                    //    else
+                    //    {
+                            
+                    //        {
+                    //            //Add any additional fields for the contact here
+
+                    //        };
+
+                    //        _contactId = _orgService.Create(contact);
+                    //    }
+                    //}
 
                     _contactId = _orgService.Create(contact);
 
-                    Incident incident = new Incident {
-                        Title = i.Title,
-                        Description = i.Description,
-                        CustomerId = new EntityReference(Contact.EntityLogicalName, _contactId)
+                    //Create the incident (case)
+                    Incident incident = i;
+                    {
+                        //Add any additional case fields here
+                        i.CustomerId = new EntityReference(Contact.EntityLogicalName, _contactId);
                     };
                   
                     _incidentId = _orgService.Create(incident);
 
+                    //Create a note which we use to log the students initial question
+                    Annotation note = a; 
+                    {
+                        //Add any additional fields for the note
+                        a.Subject = "Question Description";
+                        a.ObjectId = new EntityReference(Incident.EntityLogicalName, _incidentId);
+                    };
+                      
+                    _noteId = _orgService.Create(note);
 
-
-                    //Console.Write("{0} {1} created, ", account.LogicalName, account.Name);
-
-                    // Retrieve the several attributes from the new account.
-                 //   ColumnSet cols = new ColumnSet(
-                //        new String[] { "name", "address1_postalcode", "lastusedincampaign" });
-
-               //     Account retrievedAccount = (Account)_orgService.Retrieve("account", _accountId, cols);
-                    //Console.Write("retrieved, ");
-
-                    // Update the postal code attribute.
-             //       retrievedAccount.Address1_PostalCode = "98052";
-
-                    // The address 2 postal code was set accidentally, so set it to null.
-          //          retrievedAccount.Address2_PostalCode = null;
-//
-                    // Shows use of a Money value.
-          //          retrievedAccount.Revenue = new Money(5000000);
-
-                    // Shows use of a Boolean value.
-        //            retrievedAccount.CreditOnHold = false;
-
-                    // Update the account record.
-         //           _orgService.Update(retrievedAccount);
+                    //Create an appointment 
+                    //var appointment = new Appointment
+                    //{
+                    //    ScheduledStart = DateTime.Now,
+                    //    ScheduledEnd = DateTime.Now.Add(new TimeSpan(0, 30, 0)),
+                    //    Subject = "Sample 30-minute Appointment",
+                    //    RegardingObjectId = new EntityReference(Incident.EntityLogicalName,
+                    //        _incidentId)
+                    //};
+                    //Guid _appointmentId = _serviceProxy.Create(appointment);
             
                 }
             }
@@ -123,14 +134,6 @@ namespace SingleStopUSA_ASP
         }
 
         #region Public Methods
-        /// <summary>
-        /// Creates any entity records this sample requires.
-        /// </summary>
-        public void CreateRequiredRecords()
-        {
-            // For this sample, all required entities are created in the Run() method.
-        }
-
      
 
         #endregion Public Methods
@@ -195,7 +198,7 @@ namespace SingleStopUSA_ASP
         /// Standard Main() method used by most SDK samples.
         /// </summary>
         /// <param name="args"></param>
-        static public void createCase(Incident incident, Contact contact)
+        static public void createCase(Incident incident, Contact contact, Annotation note)
         {
             try
             {
@@ -206,83 +209,17 @@ namespace SingleStopUSA_ASP
                 if (connectionString != null)
                 {
                     connection app = new connection();
-                    app.Run(connectionString, incident, contact);
+                    app.Run(connectionString, incident, contact, note);
                 }
             }
             catch (System.Exception ex)
             {
-                throw;
+                throw ex;
             }
 
 
         }
         
-        static public void Main(string[] args)   
-    {
-            try
-            {
-                // Obtain connection configuration information for the Microsoft Dynamics
-                // CRM organization web service.
-                String connectionString = GetServiceConfiguration();
-
-                if (connectionString != null)
-                {
-                  connection app = new connection();
-                  //  app.Run(connectionString, true);
-                }
-            }
-
-            catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
-            {
-                Console.WriteLine("The application terminated with an error.");
-                Console.WriteLine("Timestamp: {0}", ex.Detail.Timestamp);
-                Console.WriteLine("Code: {0}", ex.Detail.ErrorCode);
-                Console.WriteLine("Message: {0}", ex.Detail.Message);
-                Console.WriteLine("Trace: {0}", ex.Detail.TraceText);
-                Console.WriteLine("Inner Fault: {0}",
-                    null == ex.Detail.InnerFault ? "No Inner Fault" : "Has Inner Fault");
-            }
-            catch (System.TimeoutException ex)
-            {
-                Console.WriteLine("The application terminated with an error.");
-                Console.WriteLine("Message: {0}", ex.Message);
-                Console.WriteLine("Stack Trace: {0}", ex.StackTrace);
-                Console.WriteLine("Inner Fault: {0}",
-                    null == ex.InnerException.Message ? "No Inner Fault" : ex.InnerException.Message);
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine("The application terminated with an error.");
-                Console.WriteLine(ex.Message);
-
-                // Display the details of the inner exception.
-                if (ex.InnerException != null)
-                {
-                    Console.WriteLine(ex.InnerException.Message);
-
-                    FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> fe = ex.InnerException
-                        as FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault>;
-                    if (fe != null)
-                    {
-                        Console.WriteLine("Timestamp: {0}", fe.Detail.Timestamp);
-                        Console.WriteLine("Code: {0}", fe.Detail.ErrorCode);
-                        Console.WriteLine("Message: {0}", fe.Detail.Message);
-                        Console.WriteLine("Trace: {0}", fe.Detail.TraceText);
-                        Console.WriteLine("Inner Fault: {0}",
-                            null == fe.Detail.InnerFault ? "No Inner Fault" : "Has Inner Fault");
-                    }
-                }
-            }
-            
-            // Additional exceptions to catch: SecurityTokenValidationException, ExpiredSecurityTokenException,
-            // SecurityAccessDeniedException, MessageSecurityException, and SecurityNegotiationException.
-
-            finally
-            {
-                Console.WriteLine("Press <Enter> to exit.");
-                Console.ReadLine();
-            }
-        }
         #endregion Main method
     
     }
