@@ -16,13 +16,17 @@
     
     
     
-    <form id="contactForm" runat="server" onsubmit="alert('Thank you for your feedback, we will reach out to you shortly.');">
+    <form id="contactForm" runat="server" onsubmit="alert('Thank you for your feedback, we will reach out to you shortly.');" >
     <div>
+            <h2>
+                <asp:Image ID="Image1" runat="server" Height="150px" ImageUrl="~/img/logo-small-2-o.png" Width="155px" />
+                <strong>&nbsp;Welcome to our Support Page</strong></h2>
+            <p>&nbsp;</p>
             <p>First Name: <asp:TextBox width="200" ID="firstname" runat="server"/></p>
             <p>Last Name: <asp:TextBox width="200" ID="lastname" runat="server"/></p>
             <p>Student ID: <asp:TextBox width="200" ID="studentid" runat="server"/></p>
 
-            <p>Preferred Method of Communication
+            <p>Preferred Method of Communication<br />
                 <input type="radio" name="prefcontact" value="prefphone"/>Phone<br />
                 <input type="radio" name="prefcontact" value="prefemail"/>Email
             </p>

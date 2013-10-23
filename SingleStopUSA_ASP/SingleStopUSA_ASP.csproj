@@ -68,6 +68,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\logo-small-2-o.png" />
     <Content Include="support.aspx" />
     <Content Include="js\3p\jquery-1.9.1.min.js" />
     <Content Include="js\3p\jquery.soap.js" />

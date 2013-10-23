@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-
-//<snippetSimplifiedConnection>
 using System.Configuration;
 using System.ServiceModel;
 
@@ -36,12 +33,11 @@ namespace SingleStopUSA_ASP
         #endregion Class Level Members
 
          /// <summary>
-        /// The Run() method first connects to the Organization service. Afterwards,
-        /// basic create, retrieve, update, and delete entity operations are performed.
+        /// The method first connects to the Organization service. Afterwards,
+        /// we create the contact, incident, and note and associate them
         /// </summary>
         /// <param name="connectionString">Provides service connection information.</param>
-        /// <param name="promptforDelete">When True, the user will be prompted to delete all
-        /// created entities.</param>
+
         public void Run(String connectionString, Incident i, Contact c, Annotation a)
         {
             try
@@ -58,39 +54,25 @@ namespace SingleStopUSA_ASP
                     Contact contact = c;
 
                     //Lookup by email address to see if we already have the contact in our database, if we dont then we add it.                   
-                    //QueryByAttribute querybyattribute = new QueryByAttribute("contact"); //Create a query object
-                    //querybyattribute.ColumnSet = new ColumnSet("guid"); //Add the column(s) you want returned
-                    //querybyattribute.Attributes.AddRange("emailaddress1"); // Add which column you are searching
-                    //querybyattribute.Values.AddRange(c.EMailAddress1); //Add what you are searching fo
+                    QueryByAttribute querybyattribute = new QueryByAttribute("contact"); //Create a query object
+                    querybyattribute.ColumnSet = new ColumnSet(new string[] {"firstname","lastname", "ownerid"}); //Add the column(s) you want returned
+                    querybyattribute.Attributes.AddRange("emailaddress1"); // Add which column you are searching
+                    querybyattribute.Values.AddRange(c.EMailAddress1); //Add what you are searching for
 
-                    // Create a column set to define which attributes should be retrieved.
-                    //ColumnSet attributes = new ColumnSet(new string[] { "name", "ownerid" });
+                    //  Query passed to service proxy.
+                    EntityCollection retrieved = _orgService.RetrieveMultiple(querybyattribute); //Make the search
 
-                    //contact = _orgService.Retrieve(contact.LogicalName, _contactId, attributes);
-
-                    ////  Query passed to service proxy.
-                    ////EntityCollection retrieved = _orgService.RetrieveMultiple(querybyattribute); //Make the search
-
-                    //foreach (var e in retrieved.Entities)
-                    //{
-
-                    //    if (e.Attributes.Contains("emailaddress1"))
-                    //    {
-                    //        // _contactId = new Guid(e.Attributes["Guid"].ToString);
-                    //    }
-                    //    else
-                    //    {
-                            
-                    //        {
-                    //            //Add any additional fields for the contact here
-
-                    //        };
-
-                    //        _contactId = _orgService.Create(contact);
-                    //    }
-                    //}
-
-                    _contactId = _orgService.Create(contact);
+          
+                    //if the contact doesnt exist then we create it, otherwise we pull the most recent contact and add it to the case
+                    if (retrieved.Entities.Count == 0)
+                    {
+                        _contactId = _orgService.Create(contact);
+                    }
+                    else
+                    {
+                        //Return the last contact id
+                        _contactId = retrieved.Entities.ElementAt(retrieved.Entities.Count-1).Id;
+                    }
 
                     //Create the incident (case)
                     Incident incident = i;
@@ -141,9 +123,7 @@ namespace SingleStopUSA_ASP
         #region Private Methods
 
         /// <summary>
-        /// Gets web service connection information from the app.config file.
-        /// If there is more than one available, the user is prompted to select
-        /// the desired connection configuration by name.
+        /// Gets web service connection information from the web.config file.
         /// </summary>
         /// <returns>A string containing web service connection configuration information.</returns>
         private static String GetServiceConfiguration()
@@ -195,9 +175,9 @@ namespace SingleStopUSA_ASP
         #region Main method
 
         /// <summary>
-        /// Standard Main() method used by most SDK samples.
+        /// This is the method to be called from the asp page. It's expected that the entities will be built directly on the asp page and the process will take care of 
+        /// default configuration so you can add/remove entity attributes from the asp page and not have to touch this code. 
         /// </summary>
-        /// <param name="args"></param>
         static public void createCase(Incident incident, Contact contact, Annotation note)
         {
             try
@@ -208,6 +188,7 @@ namespace SingleStopUSA_ASP
 
                 if (connectionString != null)
                 {
+                    //Make the connection and then run the process
                     connection app = new connection();
                     app.Run(connectionString, incident, contact, note);
                 }
