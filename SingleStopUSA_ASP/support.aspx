@@ -26,17 +26,11 @@
             <p>Last Name: <asp:TextBox width="200" ID="lastname" runat="server"/></p>
             <p>Student ID: <asp:TextBox width="200" ID="studentid" runat="server"/></p>
 
-            <p>Preferred Method of Communication<br />
-                <input type="radio" name="prefcontact" value="prefphone"/>Phone<br />
-                <input type="radio" name="prefcontact" value="prefemail"/>Email
-            </p>
-
             <p>Mobile Number: <asp:TextBox width="200" ID="mobilephone" runat="server"/></p>
             <p>Home Number: <asp:TextBox width="200" ID="homephone" runat="server"/></p>
             
             <p>E-mail Address: <asp:TextBox width="200" ID="email" runat="server"/></p>
             <p>School ID: <asp:TextBox width="200" ID="schoolid" runat="server"/></p>
-            <p>Campus ID: <asp:TextBox width="200" ID="campusid" runat="server"/></p>
 
             <p>
                 Preferred Day of Contact: <select name="preferredday">
@@ -51,45 +45,42 @@
             </select>
             </p>
 
-
-            <p>
-                Preferred Time of Contact: <select name="hour">
-                <option>&nbsp;</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-            </select> : <select name="minute">
-                <option>&nbsp;</option>
-                <option value="00">00</option>
-                <option value="15">15</option>
-                <option value="30">30</option>
-                <option value="45">45</option>
-            </select> <select name="ampm">
-                <option>&nbsp;</option>
-                <option value="am">am</option>
-                <option value="pm">pm</option>
-            </select>
+            <p>Reason for Contacting Us:
+                <asp:DropDownList ID="type" runat="server">
+                    <asp:ListItem Text="Question" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Problem" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="Request" Value="3"></asp:ListItem>
+                </asp:DropDownList>
+            </p>    
+        
+            <p>Preferred Contact Time:
+                <asp:DropDownList ID="preferredContactTime" runat="server">
+                    <asp:ListItem Text="Morning" Value="morning"></asp:ListItem>
+                    <asp:ListItem Text="Lunchtime" Value="morning"></asp:ListItem>
+                    <asp:ListItem Text="Afternoon" Value="morning"></asp:ListItem>
+                    <asp:ListItem Text="Evening" Value="morning"></asp:ListItem>
+                </asp:DropDownList>
             </p>
-
-            <p>
-                Subject: <asp:ListBox ID="subject" runat="server">
-                    <asp:ListItem value="Help with forms">Help with forms</asp:ListItem>
-                    <asp:ListItem value="Help with taxes">whatever</asp:ListItem>
-                    <asp:ListItem value="Question about qualifications">whatever</asp:ListItem>
-                    <asp:ListItem value="Other">whatever</asp:ListItem>
-            </asp:ListBox>
+       
+            <p>Preferred Method of Communication:
+                <asp:DropDownList ID="preferredContactMethod" runat="server">
+                    <asp:ListItem Text="Email" Value="email"></asp:ListItem>
+                    <asp:ListItem Text="Call my mobile" Value="mobile"></asp:ListItem>
+                    <asp:ListItem Text="Call my home phone" Value="home"></asp:ListItem>
+                </asp:DropDownList>
             </p>
             
-            <p>Description: <asp:TextBox width="300" height= "150" ID="description"  runat="server"/></p>
+            <p>Subject: <br />
+                <asp:ListBox ID="subject" runat="server">
+                    <asp:ListItem value="Help with forms">Help with forms</asp:ListItem>
+                    <asp:ListItem value="Help with taxes">Help with taxes</asp:ListItem>
+                    <asp:ListItem value="Question about qualifications">Question about qualifications</asp:ListItem>
+                    <asp:ListItem value="Other">Other</asp:ListItem>
+                </asp:ListBox>
+            </p>
+            
+            <p>Description: <br />
+                <asp:TextBox width="300" height= "150" ID="description"  runat="server"/></p>
     
 
     </div>
