@@ -93,7 +93,6 @@
     <Compile Include="authenticate.cs" />
     <Compile Include="OptionSets.cs" />
     <Compile Include="CRMService.cs" />
-    <Compile Include="loginheader.cs" />
     <Compile Include="deviceidmanager.cs" />
     <Compile Include="support.aspx.cs">
       <DependentUpon>support.aspx</DependentUpon>
