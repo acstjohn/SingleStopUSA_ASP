@@ -62,7 +62,7 @@ namespace SingleStopUSA_ASP
             Task task = new Task
             {
                  Subject = "Reach out to " + firstname.Text + " " + lastname.Text,
-                 Description = preferredContactMethod.SelectedItem.Text + "\n\n" + description.Text
+                 Description = "Via " + preferredContactMethod.SelectedItem.Text + "\n\n" + description.Text
             };
 
             // sample - add an appointment to the case
@@ -72,7 +72,7 @@ namespace SingleStopUSA_ASP
                 ScheduledEnd = currentDate.AddDays(2),
                 ScheduledDurationMinutes = 60,
                 Subject = "Contact " + firstname.Text + " " + lastname.Text + " via " + preferredContactMethod.SelectedValue,
-                Description = description.Text
+                Description = subject.SelectedItem.Text
             };
 
             // Create the collection of entities that we will loop through, create, and then associate later. 
@@ -87,7 +87,7 @@ namespace SingleStopUSA_ASP
                 entities.Entities.Add(appointment);
         
             // Send over the collection for processing
-            connection.createCase(entities);
+            CRMService.createCase(entities);
 
         }
     }

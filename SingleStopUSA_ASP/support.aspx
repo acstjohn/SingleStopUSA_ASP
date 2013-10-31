@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="support.aspx.cs" Inherits="SingleStopUSA_ASP.index" %>
 
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,15 +14,23 @@
 
 </head>
 <body>
-    
-    
-    
-    <form id="contactForm" runat="server" onsubmit="alert('Thank you for your feedback, we will reach out to you shortly.');" >
-    <div>
-            <h2>
+    <h2>
                 <asp:Image ID="Image1" runat="server" Height="150px" ImageUrl="~/img/logo-small-2-o.png" Width="155px" />
-                <strong>&nbsp;Welcome to our Support Page</strong></h2>
+                <strong>&nbsp;Single Stop Support</strong></h2>
             <p>&nbsp;</p>
+
+
+    <%
+        if (IsPostBack)
+        {
+            contactForm.Visible = false;
+            Response.Write("Thank you for reaching out to us " + firstname.Text + ". One of our representatives will reach out to you shortly");
+        }
+       %>
+
+    <form id="contactForm" runat="server" method="post" >
+    <div>
+            
             <p>First Name: <asp:TextBox width="200" ID="firstname" runat="server"/></p>
             <p>Last Name: <asp:TextBox width="200" ID="lastname" runat="server"/></p>
             <p>Student ID: <asp:TextBox width="200" ID="studentid" runat="server"/></p>
@@ -84,11 +93,10 @@
     
 
     </div>
-     <asp:Button ID="callCRM" runat="server" OnClick="callCRM_Click" text="Send via SDK"/>     
+     <asp:Button ID="callCRM" runat="server" OnClick="callCRM_Click" text="Submit Request"/>     
     </form>
 
-
-
+    
 
 </body>
 </html>

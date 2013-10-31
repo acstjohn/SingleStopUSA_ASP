@@ -21,7 +21,7 @@ using Microsoft.Xrm.Client.Services;
 
 namespace SingleStopUSA_ASP
 {
-    public class connection
+    public class CRMService
     {
         #region Class Level Members
 
@@ -36,11 +36,10 @@ namespace SingleStopUSA_ASP
 
          /// <summary>
         /// The method first connects to the Organization service. Afterwards,
-        /// we create the contact, incident, and note and associate them
+        /// we create the contact, incident, and notes then associate them
         /// </summary>
         /// <param name="connectionString">Provides service connection information.</param>
 
-        //public void Run(String connectionString, Incident i, Contact c, Annotation a)
         public void Run(String connectionString, EntityCollection entities)
         {
             try
@@ -239,7 +238,7 @@ namespace SingleStopUSA_ASP
                     if (connectionString != null)
                     {
                         //Make the connection and then run the process
-                        connection app = new connection();
+                        CRMService app = new CRMService();
                         app.Run(connectionString, entities);
                     }  
                 }
